@@ -1,0 +1,114 @@
+﻿Build started 2018/8/1 17:07:28.
+Project "C:\Users\zhang\Image_maker\imageMaker\imageMaker.vcxproj" on node 2 (Build target(s)).
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I.\GeneratedFiles /I. /IC:\Qt\Qt5.5.1\5.5\msvc2013\include /I.\GeneratedFiles\Debug /IC:\Qt\Qt5.5.1\5.5\msvc2013\include\QtCore /IC:\Qt\Qt5.5.1\5.5\msvc2013\include\QtGui /IC:\Qt\Qt5.5.1\5.5\msvc2013\include\QtWidgets /Zi /nologo /W1 /WX- /Od /Oy- /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_CORE_LIB /D QT_GUI_LIB /D QT_WIDGETS_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt layerActivation.cpp layerBatchNormalization.cpp layerConvolution.cpp dataBucket.cpp GeneratedFiles\Debug\moc_imagemaker.cpp GeneratedFiles\Debug\moc_mimage.cpp GeneratedFiles\Debug\moc_platepredictwindow.cpp GeneratedFiles\Debug\moc_resizewindow.cpp imagemaker.cpp IMGMAKER_FUNC.cpp layerDropout.cpp layerFullconnect.cpp layerInput.cpp main.cpp mPlate.cpp mPlate_Locate.cpp netWork.cpp NNTrain.cpp platepredictwindow.cpp TRAIN_FUNC.cpp
+  layerActivation.cpp
+  layerBatchNormalization.cpp
+  layerConvolution.cpp
+  dataBucket.cpp
+  moc_imagemaker.cpp
+C:\Library\opencv\build\include\opencv2/core/mat.hpp(1965): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/persistence.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/utility.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  moc_mimage.cpp
+C:\Library\opencv\build\include\opencv2/core/mat.hpp(1965): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/persistence.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/utility.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  moc_platepredictwindow.cpp
+C:\Library\opencv\build\include\opencv2/core/mat.hpp(1965): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/persistence.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/utility.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  moc_resizewindow.cpp
+  imagemaker.cpp
+C:\Library\opencv\build\include\opencv2/core/mat.hpp(1965): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/persistence.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/utility.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  IMGMAKER_FUNC.cpp
+C:\Library\opencv\build\include\opencv2/core/mat.hpp(1965): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/persistence.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/utility.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  layerDropout.cpp
+  layerFullconnect.cpp
+  layerInput.cpp
+  main.cpp
+C:\Library\opencv\build\include\opencv2/core/mat.hpp(1965): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/persistence.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/utility.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  mPlate.cpp
+C:\Library\opencv\build\include\opencv2/core/mat.hpp(1965): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/persistence.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/utility.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  mPlate_Locate.cpp
+mPlate_Locate.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/mat.hpp(1965): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/persistence.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/utility.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+mPlate_Locate.cpp(380): warning C4804: '<=' : unsafe use of type 'bool' in operation
+mPlate_Locate.cpp(399): warning C4804: '<=' : unsafe use of type 'bool' in operation
+  netWork.cpp
+C:\Library\opencv\build\include\opencv2/core/mat.hpp(1965): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/persistence.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/utility.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  NNTrain.cpp
+C:\Library\opencv\build\include\opencv2/core/mat.hpp(1965): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/persistence.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/utility.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  platepredictwindow.cpp
+C:\Library\opencv\build\include\opencv2/core/mat.hpp(1965): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/persistence.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/utility.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  TRAIN_FUNC.cpp
+C:\Library\opencv\build\include\opencv2/core/mat.hpp(1965): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/persistence.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+C:\Library\opencv\build\include\opencv2/core/utility.hpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  Generating Code...
+c:\users\zhang\image_maker\imagemaker\imgmaker_func.cpp(548): warning C4715: 'imgmaker::Iplimage2Qimage' : not all control paths return a value
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I.\GeneratedFiles /I. /IC:\Qt\Qt5.5.1\5.5\msvc2013\include /I.\GeneratedFiles\Debug /IC:\Qt\Qt5.5.1\5.5\msvc2013\include\QtCore /IC:\Qt\Qt5.5.1\5.5\msvc2013\include\QtGui /IC:\Qt\Qt5.5.1\5.5\msvc2013\include\QtWidgets /Zi /nologo /W1 /WX- /Od /Oy- /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_CORE_LIB /D QT_GUI_LIB /D QT_WIDGETS_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GeneratedFiles\qrc_imagemaker.cpp
+  qrc_imagemaker.cpp
+ResourceCompile:
+  C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe /l"0x0409" /nologo /fo"Debug\imageMaker.res" imageMaker.rc 
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\zhang\Image_maker\Win32\Debug\\imageMaker.exe" /NOLOGO /LIBPATH:C:\Qt\Qt5.5.1\5.5\msvc2013\lib qtmaind.lib Qt5Cored.lib Qt5Guid.lib Qt5Widgetsd.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib opencv_ts300.lib opencv_ts300d.lib opencv_world300.lib opencv_world300d.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\zhang\Image_maker\Win32\Debug\imageMaker.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\zhang\Image_maker\Win32\Debug\imageMaker.lib" /MACHINE:X86 /SAFESEH Debug\imageMaker.res
+  Debug\layerActivation.obj
+  Debug\configNN.obj
+  Debug\layerBatchNormalization.obj
+  Debug\layerConvolution.obj
+  Debug\dataBucket.obj
+  Debug\moc_imagemaker.obj
+  Debug\moc_mimage.obj
+  Debug\moc_mqabout.obj
+  Debug\moc_platepredictwindow.obj
+  Debug\moc_resizewindow.obj
+  Debug\moc_rotatewindow.obj
+  Debug\moc_tiltwindow.obj
+  Debug\qrc_imagemaker.obj
+  Debug\imagemaker.obj
+  Debug\IMGMAKER_FUNC.obj
+  Debug\layerDropout.obj
+  Debug\layerFullconnect.obj
+  Debug\layerInput.obj
+  Debug\layerPooling.obj
+  Debug\layerSoftmax.obj
+  Debug\lossFunction.obj
+  Debug\main.obj
+  Debug\mimage.obj
+  Debug\mPlate.obj
+  Debug\mPlate_Locate.obj
+  Debug\mqabout.obj
+  Debug\CNN_FUNC.obj
+  Debug\netWork.obj
+  Debug\NNTrain.obj
+  Debug\optimizer.obj
+  Debug\platepredictwindow.obj
+  Debug\resizewindow.obj
+  Debug\rotatewindow.obj
+  Debug\threadPool.obj
+  Debug\structPlate.obj
+  Debug\tiltwindow.obj
+  Debug\TRAIN_FUNC.obj
+  imageMaker.vcxproj -> C:\Users\zhang\Image_maker\Win32\Debug\imageMaker.exe
+Done Building Project "C:\Users\zhang\Image_maker\imageMaker\imageMaker.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:01:01.87

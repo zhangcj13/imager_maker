@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{d95b4704-133a-4947-9a1b-83cec034f652}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{541d3cb5-79f0-48d5-bca1-b4a92567787c}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="LicensePlateRecognition">
+      <UniqueIdentifier>{543f2860-3e1e-4180-bbb3-37a31a7a4eb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LicensePlateRecognition\Head FIles">
+      <UniqueIdentifier>{486ad37a-72a8-4257-9b09-77d16f0a2c86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LicensePlateRecognition\Source Files">
+      <UniqueIdentifier>{ac7ecbb3-71b6-4226-bc4b-90859691b2cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DeepLearning">
+      <UniqueIdentifier>{781083ce-b14a-4c0f-9d7f-dfed3aafa619}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ChildWIN">
+      <UniqueIdentifier>{895fbc45-69c8-4207-a6e3-ea6f0ee46d88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ChildWIN\childWin_head">
+      <UniqueIdentifier>{74b14a9d-9415-43a3-a9c8-efede76f3f6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ChildWIN\childWin_cpp">
+      <UniqueIdentifier>{f58cfef1-4903-485b-b91a-9a703a076129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DeepLearning\CNN">
+      <UniqueIdentifier>{4d9f7f70-001d-4c34-b16a-03d4aff7a620}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DeepLearning\CNN\Head FIles">
+      <UniqueIdentifier>{87ce0a88-f776-4851-9011-ceb8c916edbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DeepLearning\CNN\Source Files">
+      <UniqueIdentifier>{a913660f-f97f-43a5-b235-8899cee1ac23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DeepLearning\Test_Example">
+      <UniqueIdentifier>{495a1be7-ef75-45ad-bb69-51eb095734e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DeepLearning\Test_Example\Head Files">
+      <UniqueIdentifier>{29872b5b-8cf1-4f06-8989-d1dc90c23d82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DeepLearning\Test_Example\Source Files">
+      <UniqueIdentifier>{8943540d-0668-4b21-81c0-b5d7f3d17698}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imagemaker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_imagemaker.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_imagemaker.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_imagemaker.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mimage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_mimage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_mimage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="mqabout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_mqabout.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_mqabout.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_resizewindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_resizewindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_rotatewindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_rotatewindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="resizewindow.cpp">
+      <Filter>ChildWIN\childWin_cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="rotatewindow.cpp">
+      <Filter>ChildWIN\childWin_cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_tiltwindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_tiltwindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="tiltwindow.cpp">
+      <Filter>ChildWIN\childWin_cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_platepredictwindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_platepredictwindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="platepredictwindow.cpp">
+      <Filter>LicensePlateRecognition\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGMAKER_FUNC.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mPlate.cpp">
+      <Filter>LicensePlateRecognition\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mPlate_Locate.cpp">
+      <Filter>LicensePlateRecognition\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="structPlate.cpp">
+      <Filter>LicensePlateRecognition\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dataBucket.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="configNN.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CNN_FUNC.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="threadPool.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="layerConvolution.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="layerInput.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="layerActivation.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="layerPooling.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="layerFullconnect.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="layerSoftmax.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="layerDropout.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="layerBatchNormalization.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="netWork.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lossFunction.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NNTrain.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="optimizer.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TRAIN_FUNC.cpp">
+      <Filter>DeepLearning\CNN\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="imagemaker.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="imagemaker.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mimage.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mqabout.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="resizewindow.h">
+      <Filter>ChildWIN\childWin_head</Filter>
+    </CustomBuild>
+    <CustomBuild Include="rotatewindow.h">
+      <Filter>ChildWIN\childWin_head</Filter>
+    </CustomBuild>
+    <CustomBuild Include="tiltwindow.h">
+      <Filter>ChildWIN\childWin_head</Filter>
+    </CustomBuild>
+    <CustomBuild Include="platepredictwindow.h">
+      <Filter>LicensePlateRecognition\Head FIles</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="mOpenCV.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="structData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="structPlate.h">
+      <Filter>LicensePlateRecognition\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGMAKER_FUNC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mPlate.h">
+      <Filter>LicensePlateRecognition\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="mPlate_Locate.h">
+      <Filter>LicensePlateRecognition\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="mCNN.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="dataBucket.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="paramBucket.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="configNN.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="CNN_FUNC.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="threadPool.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="layerConvolution.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="layerInput.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="layerActivation.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="layerBase.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="commonTools.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="layerPooling.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="layerFullconnect.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="layerDropout.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="layerSoftmax.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="layerBatchNormalization.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="netWork.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="lossFunction.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="main_test_func.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NNTrain.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="optimizer.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="mTrain.h">
+      <Filter>DeepLearning\CNN</Filter>
+    </ClInclude>
+    <ClInclude Include="TRAIN_FUNC.h">
+      <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="imageMaker.rc" />
+  </ItemGroup>
+</Project>
