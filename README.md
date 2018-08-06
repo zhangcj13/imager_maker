@@ -4,7 +4,7 @@ as i was learning Image processing and machine learning, so i start this project
 # main Content
 LicensePlateRecognition（车牌识别）项目。由于学习中，没有经过较多的测试，存在很多问题，定位算法，后期字符分割有待改进。
 
-![image](https://github.com/zhangcj13/imager_maker/blob/master/ShowPro.png）
+![image](https://github.com/zhangcj13/imager_maker/blob/master/ShowPro.png?raw=true)
 
 
 # tool list
