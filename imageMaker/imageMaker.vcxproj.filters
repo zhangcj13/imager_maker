@@ -68,6 +68,20 @@
     <Filter Include="DeepLearning\Test_Example\Source Files">
       <UniqueIdentifier>{8943540d-0668-4b21-81c0-b5d7f3d17698}</UniqueIdentifier>
     </Filter>
+    <Filter Include="_DIY_Control_Box">
+      <UniqueIdentifier>{844249e1-c2a8-4661-8473-53d092ed522a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="_DIY_Control_Box\header">
+      <UniqueIdentifier>{a880cab6-0f24-4ce3-a9d2-c4a8cf581ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_DIY_Control_Box\source">
+      <UniqueIdentifier>{8af169a4-8a0b-44e7-a4ac-59a1bd74dba5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -202,6 +216,78 @@
     <ClCompile Include="TRAIN_FUNC.cpp">
       <Filter>DeepLearning\CNN\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_dimensionswindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_dimensionswindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="dimensionswindow.cpp">
+      <Filter>ChildWIN\childWin_cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="mqthread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_mqthread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_mqthread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_analyticdegreewindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_analyticdegreewindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="analyticdegreewindow.cpp">
+      <Filter>ChildWIN\childWin_cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_mslider.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_mslider.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_colorbandswindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_colorbandswindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="colorbandswindow.cpp">
+      <Filter>ChildWIN\childWin_cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_mhistgram.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_mhistgram.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="mhistgram.cpp">
+      <Filter>_DIY_Control_Box\source</Filter>
+    </ClCompile>
+    <ClCompile Include="mslider.cpp">
+      <Filter>_DIY_Control_Box\source</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_mslider2.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_mslider2.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="mslider2.cpp">
+      <Filter>_DIY_Control_Box\source</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_colorbalancewindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_colorbalancewindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="colorbalancewindow.cpp">
+      <Filter>ChildWIN\childWin_cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="imagemaker.h">
@@ -227,6 +313,39 @@
     </CustomBuild>
     <CustomBuild Include="platepredictwindow.h">
       <Filter>LicensePlateRecognition\Head FIles</Filter>
+    </CustomBuild>
+    <CustomBuild Include="dimensionswindow.h">
+      <Filter>ChildWIN\childWin_head</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mqthread.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="analyticdegreewindow.h">
+      <Filter>ChildWIN\childWin_head</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mslider.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="colorbandswindow.h">
+      <Filter>ChildWIN\childWin_head</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mhistgram.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mslider.h">
+      <Filter>_DIY_Control_Box\header</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mhistgram.h">
+      <Filter>_DIY_Control_Box\header</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mslider2.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mslider2.h">
+      <Filter>_DIY_Control_Box\header</Filter>
+    </CustomBuild>
+    <CustomBuild Include="colorbalancewindow.h">
+      <Filter>ChildWIN\childWin_head</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -319,6 +438,18 @@
     </ClInclude>
     <ClInclude Include="TRAIN_FUNC.h">
       <Filter>DeepLearning\CNN\Head FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_mslider.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mMatrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_mhistgram.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_mslider2.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

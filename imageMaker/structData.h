@@ -50,4 +50,24 @@ struct MouseData{
 	bool rightButtonRelease;
 };
 
+typedef struct PColorLevelItem
+{
+	size_t Shadow;
+	float Midtones;
+	size_t Highlight;
+	size_t OutShadow;
+	size_t OutHighlight;
+	size_t numchannel;
+
+	PColorLevelItem(size_t _Shadow = 0, size_t _Highlight = 255, size_t _OutShadow = 0, size_t _OutHighlight = 255, float _Midtones = 1., size_t _numchannel=3)
+	{
+		Shadow = _Shadow;
+		Midtones = _Midtones;
+		Highlight = _Highlight;
+		OutShadow = _OutShadow;
+		OutHighlight = _OutHighlight;
+		numchannel = _numchannel;
+	}
+};
+
 #endif // STRUCTDATA_H

@@ -3,6 +3,7 @@
 resizeWindow::resizeWindow(QWidget *parent)
 	: QDialog(parent)
 {
+
 	this->setObjectName(QStringLiteral("ResizeImg"));
 	this->setWindowTitle(tr("ResizeImg"));
 	this->resize(400, 100);

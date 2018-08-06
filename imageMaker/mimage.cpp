@@ -46,7 +46,6 @@ int mImage::saveImageFile(void)
 
 int mImage::saveAsImageFile(void)
 {
-
 	QString saveName = QFileDialog::getSaveFileName(this, tr("Save Image"), "", tr("Images (*.png *.bmp *.jpg)")); //选择路径
 	QScreen *screen = QGuiApplication::primaryScreen();
 	pixmap.save(saveName);
@@ -251,8 +250,6 @@ int mImage::upgradeFileInfo(IplImage* imgIn, int angle, int sizeScale)
 //将opencv格式图片转换为Qimage
 QImage mImage::iplImg2QImg(IplImage *iplImg)
 {
-	
-
 	int nChannel = iplImg->nChannels;
 	if (nChannel == 3)
 	{
@@ -357,8 +354,7 @@ int mImage::mirrorImage(int flag)
 	{
 	case 0:
 	{
-		map[2] = 
-			currentImage->width;
+		map[2] = currentImage->width;
 		map[4] = 1;
 		break;
 	}

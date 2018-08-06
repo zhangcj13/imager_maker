@@ -19,9 +19,12 @@ int main(int argc, char *argv[])
 	//CNN_TEST();
 	//cvCopyMakeBordertest();
 
+	
+	//cvCopyMakeBordertest();
+	//void testMatrix();
+
 	//return 0;
 
-	
 	QApplication a(argc, argv);
 	imageMaker w;
 	w.show();

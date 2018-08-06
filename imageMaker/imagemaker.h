@@ -24,8 +24,15 @@
 #include "rotatewindow.h"
 #include "tiltwindow.h"
 
+#include "dimensionswindow.h"
+#include "analyticdegreewindow.h"
+
+#include "colorbandswindow.h"
+#include "colorbalancewindow.h"
+
 #include "PlatePredict.h"
 #include "PlatePredictWindow.h"
+
 
 class imageMaker : public QMainWindow
 {
@@ -76,11 +83,17 @@ private:
 	void historyOperate(void);
 	void updateHisTags(void);
 
+private: //menu initial
+	void menu_img_init(void);
+	void menu_filter_init(void);
+
+	void refreshImgviewer(char * name);
+
+
 public slots:
 
     void TestActionTriggered(void);
 	void plateActionTriggered(void);
-
 
 
 	void openActionTriggered(void);
@@ -88,6 +101,23 @@ public slots:
 	void saveActionTriggered(void);
 	void saveAsActionTriggered(void);
 
+	//menu_img-----------------------------
+	void dimensionsActionTriggered(void);
+	void analyticdegreeActionTriggered(void);
+
+	void hflipActionTriggered(void);
+	void vflipActionTriggered(void);
+
+	void Rorate180ActionTriggered(void);
+	void Rorate90ActionTriggered(void);
+	void Rorate90BActionTriggered(void);
+
+	void antiColorActionTriggered(void);
+	//menu_filter--------------------------
+	void colorbandsActionTriggered(void);
+	void colorbalanceActionTriggered(void);
+	
+	//-----------------------------------
 	void aboutQtTriggered(void);
 	void aboutTriggered(void);
 	//
@@ -111,7 +141,13 @@ private slots:
 	void receiveSeed(double data);
 	void receiveAngle(double data);
 	void receiveTiltAngle(double dataX, double dataY);
-signals:
+
+	void receiveDimensions(int _w, int _h, int _flag); 
+	void receiveAnalyticDegree(int _w, int _h);
+
+	void receivePColorLevelItem(PColorLevelItem,bool);
+public:
+	void  sendData(int,int);
 	//void newProcessingFlags(struct ProcessingFlags p_flags);
 
 };

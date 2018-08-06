@@ -17,6 +17,8 @@
 
 #include "IMGMAKER_FUNC.h"
 
+#include "mMatrix.h"
+
 
 void IMGMAKER_FUNC_TEST()
 {
@@ -26,45 +28,13 @@ void IMGMAKER_FUNC_TEST()
 	//char* filename = "C:\\Users\\zhang\\Pictures\\P191.png";
 
 	IplImage* imgin = cvLoadImage(filename);
-	IplImage* match;
-	CvBox2D rect;
+	IplImage* dst = cvCreateImage(cvGetSize(imgin), imgin->depth, imgin->nChannels);
+	PColorLevelItem item(50, 100, 2, 255, 1);
 
-	mPlate_Locate Loc;
+	imgmaker::imageColorLevel(imgin, dst, item, 0);
 
-	Loc.InitialData(imgin);
-
-	vector<mPlate> candPlates;
-	//candPlates.reserve(64);
-	//Loc.plateLocateBYColor(Loc.initialImg, 1);
-
-	Loc.LocatePlate();
-
-
-
-
-	//cvShowImage("pic", imgin);
-	//cvWaitKey();
-
-	//vector<mPlate> candPlates;
-
-	//mPlate_Locate Loc;
-
-	//Loc.sobelOper(imgin, match, 3, 19, 5);
-
-	//Loc.plateLocateBYColor(imgin, candPlates, 1);
-
-	//candPlates[0].plateShow();
-
-
-
-	//rect.center.x=500;
-	//rect.center.x = 400;
-	//rect.size = CvSize2D32f(250, 120);
-	//rect.angle = 1	;
-	//IplImage* out = rect2Img(imgin, rect, *match);
-
-	//cvShowImage("pic", out);
-	//	cvWaitKey();
+	cvShowImage("pic", dst);
+		cvWaitKey();
 }
 
 void CNN_TEST()
@@ -122,8 +92,17 @@ void cvCopyMakeBordertest()
 {
 	char *pathname = "C:\\Users\\zhang\\Pictures\\P191.png";
 	IplImage* img = cvLoadImage(pathname);
-	IplImage* dst = imgmaker::expandImage(img,180,200,255);
-	cvShowImage("img", dst);
-	cvWaitKey();
 
+
+	getImgHistorm(img);
+}
+
+void testMatrix()
+{
+	imgmaker::mMatrix<int>  x(1, 5);
+	x(0, 0 )=1;
+	x(0, 1) = 2;
+	x(0, 2) = 5;
+
+	int y = x.mMax();
 }

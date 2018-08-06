@@ -73,14 +73,16 @@ public:
 	int spinToRight(void);
 	int spinToLeft(void);
 	*/
+public:
+	int loadImageResource(void);
+	int loadImageResource(const QString &caption, const QString &dir, const QString &filer);
+	int loadImageResource(IplImage* img);
 protected:
 	//初始化
 	void initImageResource(void);
 
 	//打开文件
-	int loadImageResource(void);
-	int loadImageResource(const QString &caption, const QString &dir, const QString &filer);
-	int loadImageResource(IplImage* img);
+	
 
 	//get file info list from current path
 	int getFileInfoList(void);

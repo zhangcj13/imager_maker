@@ -278,42 +278,7 @@ namespace imgmaker
 		cvResize(src, dst, CV_INTER_LINEAR);
 		return 0;
 	}
-	//扩展图片尺寸；
-	IplImage* expandImage(const IplImage *src, size_t _w, size_t _h,uchar _color)
-	{
-		int  channels = src->nChannels;
-		IplImage* dst = cvCreateImage(CvSize(_w, _h), IPL_DEPTH_8U, channels);
-		
-		uchar* mdata = (uchar *)src->imageData;
-		int step = src->widthStep / sizeof(uchar);
-		uchar* mdatad = (uchar *)dst->imageData;
-		int stepd = dst->widthStep / sizeof(uchar);
-
-		size_t w_s = src->width;
-		size_t h_s = src->height;
-
-		int wl = int((_w - w_s) / 2.);
-		int hl = int((_h - h_s) / 2.);
-		int wr = wl + w_s;
-		int hh = hl + h_s;
-		
-		for (int row = 0; row < _h; row++)
-		{
-			for (int col = 0; col < _w; col++)
-			{
-				for (int chan = 0; chan < src->nChannels; chan++)
-				{
-					if (col >= wl && col < wr && row >= hl && row < hh)
-						mdatad[row*stepd + col*channels + chan] = mdata[(row - hl)*step + (col - wl)*channels + chan];
-					else
-						mdatad[row*stepd + col*channels + chan] = _color;
-				}
-			}
-		}
-		return dst;
-		
-	}
-
+	
 	int  gaussianBlurImage(const IplImage *src, IplImage* &dst, int blurX, int blurY)
 	{
 		dst = cvCreateImage(cvSize(src->width, src->height), IPL_DEPTH_8U, src->nChannels);;
@@ -600,5 +565,251 @@ namespace imgmaker
 		float mean = float(num3d) / float(size3d);
 		return mean;
 	}
-  
+	//扩展图片尺寸；
+	IplImage* expandImage(const IplImage *src, int _w, int _h, uchar _color, int _flag)
+	{
+		int  channels = src->nChannels;
+		IplImage* dst = cvCreateImage(CvSize(_w, _h), IPL_DEPTH_8U, channels);
+
+		uchar* mdata = (uchar *)src->imageData;
+		int step = src->widthStep / sizeof(uchar);
+		uchar* mdatad = (uchar *)dst->imageData;
+		int stepd = dst->widthStep / sizeof(uchar);
+
+		int w_s = src->width;
+		int h_s = src->height;
+
+		int wl = int((_w - w_s) / 2.);
+		int hl = int((_h - h_s) / 2.);
+		int wr = abs(wl) + w_s;
+		int hh = abs(hl) + h_s;
+
+		int r_p;
+		int c_p;
+
+		for (int row = 0; row < _h; row++)
+		{
+			for (int col = 0; col < _w; col++)
+			{
+				for (int chan = 0; chan < src->nChannels; chan++)
+				{
+					if (col >= wl && col < wr && row >= hl && row < hh)
+						mdatad[row*stepd + col*channels + chan] = mdata[(row - hl)*step + (col - wl)*channels + chan];
+					else
+					{
+						switch (_flag)
+						{
+						case 0:
+							mdatad[row*stepd + col*channels + chan] = _color;
+							break;
+						case 1:
+							r_p = modInt((row - hl) , h_s);
+							c_p = modInt((col - wl) , w_s);
+							mdatad[row*stepd + col*channels + chan] = mdata[(r_p)*step + (c_p)*channels + chan];
+							break;
+						case 2:
+							if ((col < wl || col > wr) && row >= hl && row < hh)
+							{
+								r_p = modInt((row - hl), h_s);
+								c_p = w_s - modInt((col - wl), w_s);
+							}
+							else if (col >= wl && col < wr && (row < hl || row > hh))
+							{
+								r_p = h_s-modInt((row - hl), h_s);
+								c_p = modInt((col - wl), w_s);
+							}
+							else
+							{
+								r_p = h_s-modInt((row - hl), h_s);
+								c_p = w_s-modInt((col - wl), w_s);
+							}
+							
+							mdatad[row*stepd + col*channels + chan] = mdata[(r_p)*step + (c_p)*channels + chan];
+							break;
+						}
+					}
+						
+				}
+			}
+		}
+		return dst;
+
+	}
+
+	IplImage* resizeImgage(const IplImage *src,  int _w, int _h)
+	{
+		IplImage* dst = cvCreateImage(CvSize(_w,_h), IPL_DEPTH_8U, src->nChannels);
+		cvResize(src, dst, CV_INTER_LINEAR);
+		return dst;
+	}
+
+	IplImage* mirrorImage(const IplImage *src,int flag)
+	{
+		double map[6] = { -1, 0, 0, 0, -1, 0 };
+		switch (flag)
+		{
+		case 0:
+		{
+			map[2] = src->width;
+			map[4] = 1;
+			break;
+		}
+		case 1:
+		{
+			map[0] = 1;
+			map[5] = src->height;
+			break;
+		}
+		case 2:
+		{
+			map[5] = src->height;
+			map[2] = src->width;
+			break;
+		}
+		}
+		CvMat map_matrix = cvMat(2, 3, CV_64FC1, map);
+		IplImage *currentImageMirror = cvCreateImage(cvSize(src->width, src->height), IPL_DEPTH_8U, src->nChannels);
+		cvWarpAffine(src, currentImageMirror, &map_matrix, CV_INTER_LINEAR | CV_WARP_FILL_OUTLIERS, cvScalarAll(0));
+		return currentImageMirror;
+	}
+
+	IplImage* rotateImgage(const IplImage*src, double degree)
+	{
+		double angle = degree  * CV_PI / 180.;
+		double a = sin(angle), b = cos(angle);
+		int w_src = src->width;
+		int h_src = src->height;
+		//输出图像尺寸
+		int w_dst = int(h_src * fabs(a) + w_src * fabs(b));
+		int h_dst = int(w_src * fabs(a) + h_src * fabs(b));
+		double map[6];
+		CvMat map_matrix = cvMat(2, 3, CV_64FC1, map);
+		cv2DRotationMatrix(cvPoint2D32f(w_src / 2, h_src / 2), degree, 1.0, &map_matrix);
+		map[2] += (w_dst - w_src) / 2;
+		map[5] += (h_dst - h_src) / 2;
+
+		IplImage *ImageRotated = cvCreateImage(cvSize(w_dst, h_dst), IPL_DEPTH_8U, src->nChannels);
+
+		cvWarpAffine(src, ImageRotated, &map_matrix, CV_INTER_LINEAR | CV_WARP_FILL_OUTLIERS, cvScalarAll(0));
+
+		return ImageRotated;
+	}
+
+	mMatrix<size_t> getImgHistorm(const IplImage*src,int _nDiv)
+	{
+		size_t channels = src->nChannels;
+		mMatrix<size_t> Hist(channels, _nDiv);
+		
+		uchar* mdata = (uchar *)src->imageData;
+		int step = src->widthStep / sizeof(uchar);
+
+		for (int row = 0; row < src->height; row++)		{
+			for (int col = 0; col < src->width; col++)			{
+				for (int chan = 0; chan < channels; chan++)				{
+					int temp = int(mdata[row*step + col*channels + chan]);
+					Hist(chan, temp)++;
+				}
+			}
+		}
+		return Hist;
+	}
+
+	void resetHistorm(const mMatrix<size_t> hist, mMatrix<size_t> *dhist, size_t _minIN, size_t _maxIn, float _factor)
+	{
+		/*assert(_minOut < hist.getcols() && _maxIn >= 0);
+		float ratioIn = (float)(_maxIn - _minIN) / hist.getcols();
+		for (int i = 0; i < hist.getrows(); ++i){
+			for (int j = 0; j < hist.getcols(); ++j){
+				//int labelY = round(_Vmin + (float)j*bili*pow((float)j*bili / (_Vmax - _Vmin), 1./ _factor));
+				float fLabelIn = (float)(_maxIn + (float)j*ratioIn*pow((float)j*ratioIn / (_maxIn - _maxIn), 1. / _factor));
+				int iLabelIn = int(fLabelIn);
+				float l2r = fLabelIn - iLabelIn;
+
+				float fLabelOut = (float)(_maxIn + j*ratioIn);
+				if (l2r != 0)
+				{
+					(*dhist)(i, iLabelIn) += (size_t)hist(i, j)*(1 - l2r);
+					(*dhist)(i, iLabelIn + 1) += (size_t)hist(i, j)*l2r;
+				}
+				else
+					(*dhist)(i, iLabelIn) += hist(i, j);
+			}
+		}
+		for (int i = 0; i < hist.getrows(); ++i){
+			for (int j = _minOut; j < _minOut; ++j){
+			}
+		}*/
+	}
+
+	bool getColorLevelTable(PColorLevelItem item, mMatrix<uchar> *clTable)
+	{
+		size_t diff = (size_t)(item.Highlight - item.Shadow);
+		size_t outDiff = (size_t)(item.OutHighlight - item.OutShadow);
+
+		assert(item.Highlight < 256 && item.OutShadow<256 && item.Midtones>=0.1 && item.Midtones<9.99);
+
+		float coef = 255.0 / diff;
+		float outCoef = outDiff / 255.0;
+		float exponent = 1.0 / item.Midtones;
+
+		for (int i = 0; i < 256; i++){
+			int v;
+			if ((*clTable)(i)<= (uchar)item.Shadow)
+				v = 0;
+			else{
+				v = (int)(((*clTable)(i)-item.Shadow) * coef + 0.5);
+				if (v > 255)
+					v = 255;
+			}
+			v = (int)(pow(v / 255.0, exponent) * 255.0 + 0.5);
+			(*clTable)(i) = (unsigned char)(v * outCoef + item.OutShadow + 0.5);
+		}
+		return true;
+	}
+
+	int imageColorLevel(const IplImage* src, IplImage* dst, PColorLevelItem item,int charchaneel)
+	{
+		//色阶表替换法替换三个通道的数据
+		mMatrix<uchar> ctable(1,256);
+		ctable.setEqualRatioM();
+		getColorLevelTable(item, &ctable);
+
+		int channels = src->nChannels;
+		if (channels == 1) charchaneel = 0;
+
+		uchar* mdata = (uchar *)src->imageData;
+		int step = src->widthStep / sizeof(uchar);
+
+		uchar* mdataD = (uchar *)dst->imageData;
+		int stepD = dst->widthStep / sizeof(uchar);
+
+		for (int row = 0; row < src->height; row++)
+		{
+			for (int col = 0; col < src->width; col++)
+			{
+				switch (item.numchannel){
+				case 0:{
+					mdataD[row*stepD + col*channels] = ctable(int(mdata[row*step + col*channels]));
+					break;
+				}
+				case 1:{
+					mdataD[row*stepD + col*channels+1] = ctable(int(mdata[row*step + col*channels+1]));
+					break;
+				}
+				case 2:{
+					mdataD[row*stepD + col*channels+2] = ctable(int(mdata[row*step + col*channels+2]));
+					break;
+				}
+				case 3:{
+					mdataD[row*stepD + col*channels] = ctable(int(mdata[row*step + col*channels]));
+					mdataD[row*stepD + col*channels+1] = ctable(int(mdata[row*step + col*channels+1]));
+					mdataD[row*stepD + col*channels+2] = ctable(int(mdata[row*step + col*channels+2]));
+					break;
+				}
+				}
+			}
+		}
+		return 0;
+
+	}
 }
