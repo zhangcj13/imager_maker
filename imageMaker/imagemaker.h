@@ -29,9 +29,12 @@
 
 #include "colorbandswindow.h"
 #include "colorbalancewindow.h"
+#include "brightnesswindow.h"
+#include "chromawindow.h"
 
 #include "PlatePredict.h"
 #include "PlatePredictWindow.h"
+#include "blackwhiltethreshwindow.h"
 
 
 class imageMaker : public QMainWindow
@@ -62,16 +65,38 @@ private:
 	mQAbout aboutWidget;
 	
 	mImage *imageViewer;
-	//标签操作
+	
+	//历史
+	QAction *his0, *his1, *his2, *his3, *his4, *his5;
+	QMenu *HistoryMenu;
+
+private:
+	QMenu *fileMenu;
 	QAction *openAction;
 	QAction *closeAction;
 	QAction *saveAction;
 	QAction *saveAsAction;
-	//
+
+	//menu img
+	QMenu *imgMenu;
+	QAction * dimensionsAction;
+	QAction * analyticdegreeAction;
+	QAction * L2R_Action;
+	QAction * U2D_Action;
+	QAction * Rorate90Action;
+	QAction * Rorate90BAction;
+	QAction * Rorate180Action;
+	QAction * antiColorAction;
+	QAction * backGroundColorAction;
+	//menu Filter
+	QMenu *filterMenu;
+	QMenu *toneMenu;
+	QAction * colorbandsAction;
+	QAction * colorbalanceAction;//算法未知
+	QAction * brightnessAction;
+	QAction * chromaAction;
 	QAction *grayScaleAction;
-	//历史
-	QAction *his0, *his1, *his2, *his3, *his4, *his5;
-	QMenu *HistoryMenu;
+	QAction *blackwhilteThreshAction;
 private:
 	void initMainWindow(void);
 	void initUiComponent(void);
@@ -83,6 +108,8 @@ private:
 	void historyOperate(void);
 	void updateHisTags(void);
 
+
+	void activeButton(bool _state);
 private: //menu initial
 	void menu_img_init(void);
 	void menu_filter_init(void);
@@ -116,6 +143,9 @@ public slots:
 	//menu_filter--------------------------
 	void colorbandsActionTriggered(void);
 	void colorbalanceActionTriggered(void);
+	void brightnessActionTriggered(void);
+	void chromaActionTriggered(void);
+	void blackwhilteThreshActionTriggered(void);
 	
 	//-----------------------------------
 	void aboutQtTriggered(void);
@@ -146,6 +176,9 @@ private slots:
 	void receiveAnalyticDegree(int _w, int _h);
 
 	void receivePColorLevelItem(PColorLevelItem,bool);
+	void receiveBrightnessContrast(PBrightContrastItem, bool);
+	void receivePHLSItem(PHLSItem, bool);
+	void receiveThresh(int, bool);
 public:
 	void  sendData(int,int);
 	//void newProcessingFlags(struct ProcessingFlags p_flags);

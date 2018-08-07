@@ -38,6 +38,7 @@ public:
 	std::vector<QPixmap> history;
 	//opencv图
 	IplImage *currentImage;
+	IplImage *currentImageTemp;
 	char *cvPath;
 	
 	//打开文件

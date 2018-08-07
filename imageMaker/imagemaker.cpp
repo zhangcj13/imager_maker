@@ -128,7 +128,7 @@ void imageMaker::setWindowComponet(void)
 	deleteAction->setShortcut(QKeySequence::Delete);
 	*/
 
-	QMenu *fileMenu = menuBar->addMenu(tr("File"));
+	fileMenu = menuBar->addMenu(tr("File"));
 	fileMenu->addAction(openAction);
 	fileMenu->addAction(saveAction);
 	fileMenu->addAction(saveAsAction);
@@ -172,6 +172,8 @@ void imageMaker::setWindowComponet(void)
 	rotateAction = new QAction((QString::fromLocal8Bit("旋转")), this);
 	tiltAction = new QAction((QString::fromLocal8Bit("倾斜")), this);
 
+	resizeAction->setDisabled(true);
+
 
 	QMenu *GEMenu = menuBar->addMenu((QString::fromLocal8Bit("几何变换")));
 	QMenu *WrapMenu;
@@ -208,11 +210,7 @@ void imageMaker::setWindowComponet(void)
 
    #pragma endregion 
 	//颜色变换
-	grayScaleAction = new QAction(tr("gray"), this);
-	grayScaleAction->setStatusTip("Gray Scale image.");
-	grayScaleAction->setIcon(QIcon("./Resources/transparencyToolStripMenuItem.png"));
-	toolBar->addAction(grayScaleAction);
-	connect(grayScaleAction, SIGNAL(triggered(bool)), this, SLOT(setGrayScale()));
+	
 
 
 
@@ -285,6 +283,7 @@ void imageMaker::setWindowComponet(void)
 	toolBar->addAction(plateAction);
 	connect(plateAction, SIGNAL(triggered(bool)), this, SLOT(plateActionTriggered()));
 
+	activeButton(false);
 }
 void imageMaker::initImageResource(void)
 {
@@ -301,29 +300,16 @@ void imageMaker::loadImageResource(void)
 //menu img initial---------------------------------------------------------------------------
 void imageMaker::menu_img_init(void)
 {
-	QMenu *imgMenu = menuBar->addMenu((QString::fromLocal8Bit("图像(Img)")));
-	QAction * dimensionsAction;
+	imgMenu = menuBar->addMenu((QString::fromLocal8Bit("图像(Img)")));
+	
 	dimensionsAction = new QAction((QString::fromLocal8Bit("图像尺寸")), this);
-
-	QAction * analyticdegreeAction;
-	analyticdegreeAction = new QAction((QString::fromLocal8Bit("图像解析度")), this);
-
-	QAction * L2R_Action;
+	analyticdegreeAction = new QAction((QString::fromLocal8Bit("图像解析度")), this);	
 	L2R_Action = new QAction((QString::fromLocal8Bit("左右翻转")), this);
-	QAction * U2D_Action;
 	U2D_Action = new QAction((QString::fromLocal8Bit("上下翻转")), this);
-
-	QAction * Rorate90Action;
 	Rorate90Action = new QAction((QString::fromLocal8Bit("90度旋转(顺时针)")), this);
-	QAction * Rorate90BAction;
 	Rorate90BAction = new QAction((QString::fromLocal8Bit("90度旋转(逆时针)")), this);
-	QAction * Rorate180Action;
 	Rorate180Action = new QAction((QString::fromLocal8Bit("180度旋转(顺时针)")), this);
-
-	QAction * antiColorAction;
 	antiColorAction = new QAction((QString::fromLocal8Bit("色调翻转")), this);
-
-	QAction * backGroundColorAction;
 	backGroundColorAction = new QAction((QString::fromLocal8Bit("图像背景颜色")), this);
 	
 	imgMenu->addAction(dimensionsAction);
@@ -360,8 +346,8 @@ void imageMaker::dimensionsActionTriggered(void)
 }
 void imageMaker::receiveDimensions(int _w, int _h,int _flag)
 {
-	IplImage* dst = expandImage(imageViewer->currentImage, _w, _h, 255, _flag);
-	imageViewer->loadImageResource(dst);
+	imageViewer->currentImageTemp = expandImage(imageViewer->currentImage, _w, _h, 255, _flag);
+	imageViewer->loadImageResource(imageViewer->currentImageTemp);
 }
 
 void imageMaker::analyticdegreeActionTriggered(void)
@@ -375,69 +361,82 @@ void imageMaker::analyticdegreeActionTriggered(void)
 }
 void imageMaker::receiveAnalyticDegree(int _w, int _h)
 {
-	IplImage* dst = resizeImgage(imageViewer->currentImage, _w, _h);
-	imageViewer->loadImageResource(dst);
+	imageViewer->currentImageTemp = resizeImgage(imageViewer->currentImage, _w, _h);
+	imageViewer->loadImageResource(imageViewer->currentImageTemp);
 }
 
 void imageMaker::hflipActionTriggered(void)
 {
-	IplImage* dst = mirrorImage(imageViewer->currentImage,0);
-	imageViewer->loadImageResource(dst);
+	mirrorImage(imageViewer->currentImage, imageViewer->currentImageTemp, 0);
+	imageViewer->loadImageResource(imageViewer->currentImageTemp);
 	refreshImgviewer("- Left2Right");
 }
 void imageMaker::vflipActionTriggered(void)
 {
-	IplImage* dst = mirrorImage(imageViewer->currentImage, 1);
-	imageViewer->loadImageResource(dst);
+	mirrorImage(imageViewer->currentImage, imageViewer->currentImageTemp, 1);
+	imageViewer->loadImageResource(imageViewer->currentImageTemp);
 	refreshImgviewer("- Up2Down");
 }
 
 void imageMaker::Rorate180ActionTriggered(void)
 {
-	IplImage* dst = rotateImgage(imageViewer->currentImage, 180.);
-	imageViewer->loadImageResource(dst);
+	imageViewer->currentImageTemp = rotateImgage(imageViewer->currentImage, 180.);
+	imageViewer->loadImageResource(imageViewer->currentImageTemp);
 	refreshImgviewer("- rotate 180°");
 }
 void imageMaker::Rorate90BActionTriggered(void)
 {
-	IplImage* dst = rotateImgage(imageViewer->currentImage, 90);
-	imageViewer->loadImageResource(dst);
+	imageViewer->currentImageTemp = rotateImgage(imageViewer->currentImage, 90);
+	imageViewer->loadImageResource(imageViewer->currentImageTemp);
 	refreshImgviewer("- rotate 180°");
 }
 void imageMaker::Rorate90ActionTriggered(void)
 {
-	IplImage* dst = rotateImgage(imageViewer->currentImage, -90);
-	imageViewer->loadImageResource(dst);
+	imageViewer->currentImageTemp = rotateImgage(imageViewer->currentImage, -90);
+	imageViewer->loadImageResource(imageViewer->currentImageTemp);
 	refreshImgviewer("- rotate 180°");
 }
 
 void imageMaker::antiColorActionTriggered(void)
 {
-	IplImage* dst;
-	antiImgColor(imageViewer->currentImage, dst);
-	imageViewer->loadImageResource(dst);
+	antiImgColor(imageViewer->currentImage, imageViewer->currentImageTemp);
+	imageViewer->loadImageResource(imageViewer->currentImageTemp);
 	refreshImgviewer("- anti color°");
 }
 //menu Filter initial--------------------------------------------------------------
 void imageMaker::menu_filter_init(void)
 {
-	QMenu *filterMenu = menuBar->addMenu((QString::fromLocal8Bit("滤镜(T)")));
+	filterMenu = menuBar->addMenu((QString::fromLocal8Bit("滤镜(T)")));
 	
-	QMenu *toneMenu = new QMenu((QString::fromLocal8Bit("色调补正")), filterMenu);
+	toneMenu = new QMenu((QString::fromLocal8Bit("色调补正")), filterMenu);
 
-	QAction * colorbandsAction;
 	colorbandsAction = new QAction((QString::fromLocal8Bit("色阶补正")), this);
-
-	QAction * colorbalanceAction;
 	colorbalanceAction = new QAction((QString::fromLocal8Bit("色彩平衡")), this);
-
+	brightnessAction= new QAction((QString::fromLocal8Bit("亮度/对比度")), this);
+	chromaAction = new QAction((QString::fromLocal8Bit("色度/彩度")), this);
+	grayScaleAction = new QAction((QString::fromLocal8Bit("灰度")), this);
+	grayScaleAction->setStatusTip("Gray Scale image.");
+	grayScaleAction->setIcon(QIcon("./Resources/transparencyToolStripMenuItem.png"));
+	blackwhilteThreshAction = new QAction((QString::fromLocal8Bit("黑白阈值")), this);
+	
 	filterMenu->addAction(toneMenu->menuAction());
 
 	toneMenu->addAction(colorbandsAction);
 	toneMenu->addAction(colorbalanceAction);
-
+	toneMenu->addAction(brightnessAction);
+	toneMenu->addAction(chromaAction);
+	toneMenu->addAction(grayScaleAction);
+	toneMenu->addSeparator();
+	toneMenu->addAction(antiColorAction);
+	toneMenu->addAction(blackwhilteThreshAction);
+	
 	connect(colorbandsAction, SIGNAL(triggered(bool)), this, SLOT(colorbandsActionTriggered()));
 	connect(colorbalanceAction, SIGNAL(triggered(bool)), this, SLOT(colorbalanceActionTriggered()));
+	connect(brightnessAction, SIGNAL(triggered(bool)), this, SLOT(brightnessActionTriggered()));
+	connect(chromaAction, SIGNAL(triggered(bool)), this, SLOT(chromaActionTriggered()));
+	connect(grayScaleAction, SIGNAL(triggered(bool)), this, SLOT(setGrayScale()));
+	connect(blackwhilteThreshAction, SIGNAL(triggered(bool)), this, SLOT(blackwhilteThreshActionTriggered()));
+
 }
 
 void imageMaker::colorbandsActionTriggered(void)
@@ -453,18 +452,15 @@ void imageMaker::colorbandsActionTriggered(void)
 }
 void imageMaker::receivePColorLevelItem(PColorLevelItem _data,bool _act)
 {
-	IplImage* tempdst = cvCreateImage(cvGetSize(imageViewer->currentImage), imageViewer->currentImage->depth, imageViewer->currentImage->nChannels);
-	cvCopy(imageViewer->currentImage, tempdst);
-	PColorLevelItem item(50, 100, 2, 255, 1);
-	imageColorLevel(imageViewer->currentImage, tempdst, _data, 0);
+	cvCopy(imageViewer->currentImage, imageViewer->currentImageTemp);
+	imageColorLevel(imageViewer->currentImage, imageViewer->currentImageTemp, _data, 0);
 	
 
 	if (_act){
-		imageViewer->loadImageResource(tempdst);
-		refreshImgviewer("- setColorlever°");
+		imageViewer->loadImageResource(imageViewer->currentImageTemp);
 	}
 	else{
-		QPixmap tempPix = Iplimage2Qpixmap(tempdst);
+		QPixmap tempPix = Iplimage2Qpixmap(imageViewer->currentImageTemp);
 		imageLabel->setPixmap(tempPix);
 		imageLabel->resize(tempPix.size());
 		setWindowTitle(QFileInfo(imageViewer->filename).fileName() + tr("temp"));
@@ -478,7 +474,89 @@ void imageMaker::colorbalanceActionTriggered(void)
 	//connect(_colorBalanceWindow, SIGNAL(PColorLevelItemChange(PColorLevelItem, bool)), this, SLOT(receivePColorLevelItem(PColorLevelItem, bool)));
 	_colorBalanceWindow->exec();
 }
+
+void imageMaker::brightnessActionTriggered(void)
+{
+	brightnessWindow * _brightnessWindow = new brightnessWindow(this);
+	connect(_brightnessWindow, SIGNAL(send_Brightness_Contrast(PBrightContrastItem, bool)), this, SLOT(receiveBrightnessContrast(PBrightContrastItem, bool)));
+	_brightnessWindow->exec();
+	refreshImgviewer("- set Brightness Contrast°");
+}
+void imageMaker::receiveBrightnessContrast(PBrightContrastItem _PBrightContrastItem, bool _act)
+{
+	adjustBrightnessContrast(imageViewer->currentImage, imageViewer->currentImageTemp, _PBrightContrastItem);
+
+	if (_act){
+		imageViewer->loadImageResource(imageViewer->currentImageTemp);
+	}
+	else{
+		QPixmap tempPix = Iplimage2Qpixmap(imageViewer->currentImageTemp);
+		imageLabel->setPixmap(tempPix);
+		imageLabel->resize(tempPix.size());
+		setWindowTitle(QFileInfo(imageViewer->filename).fileName() + tr("temp"));
+	}
+}
 	
+void imageMaker::chromaActionTriggered(void)
+{
+	chromaWindow * _chromaWindow = new chromaWindow(this);
+	connect(_chromaWindow, SIGNAL(PHLSItemChange(PHLSItem, bool)), this, SLOT(receivePHLSItem(PHLSItem, bool)));
+	_chromaWindow->exec();
+	refreshImgviewer("- set HSL");
+}
+void imageMaker::receivePHLSItem(PHLSItem _PHLSItem, bool _act)
+{
+	adjustHSL(imageViewer->currentImage, imageViewer->currentImageTemp, _PHLSItem);
+
+	if (_act){
+		imageViewer->loadImageResource(imageViewer->currentImageTemp);
+	}
+	else{
+		QPixmap tempPix = Iplimage2Qpixmap(imageViewer->currentImageTemp);
+		imageLabel->setPixmap(tempPix);
+		imageLabel->resize(tempPix.size());
+		setWindowTitle(QFileInfo(imageViewer->filename).fileName() + tr("temp"));
+	}
+}
+
+void imageMaker::setGrayScale()
+{
+	imageViewer->currentImageTemp = cvCreateImage(cvGetSize(imageViewer->currentImage), imageViewer->currentImage->depth, 1);
+	grayScaleImage(imageViewer->currentImage, imageViewer->currentImageTemp);
+
+	imageViewer->loadImageResource(imageViewer->currentImageTemp);
+	refreshImgviewer("- set gray scale");
+}
+
+void  imageMaker::blackwhilteThreshActionTriggered(void)
+{
+	mMatrix<size_t> hist = getImgHistorm(imageViewer->currentImage);
+
+	blackwhilteThreshWindow * _blackwhilteThreshWindow = new blackwhilteThreshWindow(&hist);
+	//关联信号和槽函数  
+	connect(_blackwhilteThreshWindow, SIGNAL(ThreshChanged(int, bool)), this, SLOT(receiveThresh(int, bool)));
+	_blackwhilteThreshWindow->exec();
+	refreshImgviewer("- set Thresh");
+}
+void imageMaker::receiveThresh(int _thresh, bool _act){
+	IplImage *temp = cvCreateImage(cvGetSize(imageViewer->currentImage), imageViewer->currentImage->depth, 1);
+	
+	grayScaleImage(imageViewer->currentImage, temp);
+	cvThreshold(temp, temp, _thresh, 255, CV_THRESH_BINARY);
+	
+	if (_act){
+		imageViewer->currentImageTemp = cvCreateImage(cvGetSize(imageViewer->currentImage), imageViewer->currentImage->depth, 1);
+		imageViewer->currentImageTemp = temp;
+		imageViewer->loadImageResource(imageViewer->currentImageTemp);
+		refreshImgviewer("- set Thresh");
+	}
+	else{
+		QPixmap tempPix = Iplimage2Qpixmap(temp);
+		imageLabel->setPixmap(tempPix);
+		imageLabel->resize(tempPix.size());
+		setWindowTitle(QFileInfo(imageViewer->filename).fileName() + tr("temp"));
+	}
+}
 
 	
 //历史记录---------------------------------------------------------------------------
@@ -521,6 +599,7 @@ void imageMaker::openActionTriggered(void)
 	historyOperate();
 	loadImageResource();
 
+	activeButton(true);
 	//updateHisTags();
 }
 
@@ -528,6 +607,7 @@ void imageMaker::closeActionTriggered(void)
 {
 	initImageResource();
 	imageViewer->closeImageFile();
+	activeButton(false);
 }
 
 void imageMaker::saveActionTriggered(void)
@@ -613,15 +693,6 @@ void imageMaker::MirrortActionTriggered(void)
 	imageLabel->setPixmap(imageViewer->pixmap);
 	imageLabel->resize(imageViewer->pixmap.size());
 	setWindowTitle(QFileInfo(imageViewer->filename).fileName() + tr(" - Mirror"));
-}
-
-
-void imageMaker::setGrayScale()
-{
-	imageViewer->grayScaleImage();
-	imageLabel->setPixmap(imageViewer->pixmap);
-	imageLabel->resize(imageViewer->size);
-	setWindowTitle(QFileInfo(imageViewer->filename).fileName() + tr(" - GrayScale"));
 }
 
 //help菜单
@@ -725,7 +796,6 @@ void imageMaker::plateActionTriggered(void)
 
 }
 
-
 void imageMaker::TestActionTriggered(void)
 {
 	imageViewer->perspectiveImage();
@@ -740,4 +810,52 @@ void imageMaker::refreshImgviewer(char * name)
 	imageLabel->setPixmap(imageViewer->pixmap);
 	imageLabel->resize(imageViewer->pixmap.size());
 	setWindowTitle(QFileInfo(imageViewer->filename).fileName() + tr(name));
+}
+
+void imageMaker::activeButton(bool _state)
+{
+	if (!_state){
+		saveAction->setDisabled(true);
+		saveAsAction->setDisabled(true);
+
+		dimensionsAction->setDisabled(true);
+		analyticdegreeAction->setDisabled(true);
+		L2R_Action->setDisabled(true);
+		U2D_Action->setDisabled(true);
+		Rorate90Action->setDisabled(true);
+		Rorate90BAction->setDisabled(true);
+		Rorate180Action->setDisabled(true);
+		antiColorAction->setDisabled(true);
+		backGroundColorAction->setDisabled(true);
+
+		colorbandsAction->setDisabled(true);
+		colorbalanceAction->setDisabled(true);
+		brightnessAction->setDisabled(true);
+		chromaAction->setDisabled(true);
+		grayScaleAction->setDisabled(true);
+		blackwhilteThreshAction->setDisabled(true);
+	}
+	else{
+		saveAction->setDisabled(false);
+		saveAsAction->setDisabled(false);
+
+		dimensionsAction->setDisabled(false);
+		analyticdegreeAction->setDisabled(false);
+		L2R_Action->setDisabled(false);
+		U2D_Action->setDisabled(false);
+		Rorate90Action->setDisabled(false);
+		Rorate90BAction->setDisabled(false);
+		Rorate180Action->setDisabled(false);
+		antiColorAction->setDisabled(false);
+		backGroundColorAction->setDisabled(false);
+
+		colorbandsAction->setDisabled(false);
+		colorbalanceAction->setDisabled(false);
+		brightnessAction->setDisabled(false);
+		chromaAction->setDisabled(false);
+		grayScaleAction->setDisabled(false);
+		blackwhilteThreshAction->setDisabled(false);
+	}
+
+	 
 }

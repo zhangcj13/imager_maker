@@ -23,18 +23,18 @@
 void IMGMAKER_FUNC_TEST()
 {
 
-	char* filename = "C:\\Users\\zhang\\Pictures\\carPlate1.jpg";
+	char* filename = "C:\\Users\\zhang\\Pictures\\12.jpg";
 	//char* filename = "C:\\Users\\zhang\\Pictures\\1.jpg";
 	//char* filename = "C:\\Users\\zhang\\Pictures\\P191.png";
 
 	IplImage* imgin = cvLoadImage(filename);
 	IplImage* dst = cvCreateImage(cvGetSize(imgin), imgin->depth, imgin->nChannels);
-	PColorLevelItem item(50, 100, 2, 255, 1);
-
-	imgmaker::imageColorLevel(imgin, dst, item, 0);
+	PHLSItem item(50, 0, 0, 1);
+	adjustHSL(imgin, dst, item);
+	
 
 	cvShowImage("pic", dst);
-		cvWaitKey();
+	cvWaitKey();
 }
 
 void CNN_TEST()

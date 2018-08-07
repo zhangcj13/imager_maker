@@ -23,11 +23,11 @@ int main(int argc, char *argv[])
 	//cvCopyMakeBordertest();
 	//void testMatrix();
 
-	//return 0;
+	//return 0;/*
 
 	QApplication a(argc, argv);
 	imageMaker w;
 	w.show();
 
-	return a.exec();
+	return a.exec();//*/
 }

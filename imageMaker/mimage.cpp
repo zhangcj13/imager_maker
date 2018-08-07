@@ -172,11 +172,11 @@ int mImage::upgradeFileInfo(QString &filename, int angle, int sizeScale)
 	fileInfo = QFileInfo(filename);
 	
 	currentImage = cvLoadImage(cvPath);
-	//if (!image.load(filename)) {
-	//	return -1;
-	//}
-	if (currentImage == NULL)
-	{
+	if (currentImage->nChannels==3) cvConvertImage(currentImage, currentImage, CV_CVTIMG_SWAP_RB);
+	currentImageTemp = cvCreateImage(cvSize(currentImage->width, currentImage->height), currentImage->depth, currentImage->nChannels);
+	cvCopy(currentImage, currentImageTemp);// 用于修改图片的存储空间
+	//if (!image.load(filename)) {	return -1;}
+	if (currentImage == NULL)	{
 		return -1;
 	}
 	image = iplImg2QImg(currentImage);
@@ -208,28 +208,28 @@ int mImage::upgradeFileInfo(IplImage* imgIn, int angle, int sizeScale)
 	QImage imgRotate;
 	QMatrix matrix;
 	QImage imgScaled;
-	/*
-	currentImage = cvLoadImage(cvPath);
-
-	if (currentImage == NULL)
+	
+	//交换currentImage与currentImageTemp地址,如果尺寸不相等，则为currentImageTemp重新开辟一个新的存储空间
+	if (currentImage->width == imgIn->width && currentImage->height == imgIn->height
+		&&currentImage->depth == imgIn->depth&&currentImage->nChannels == imgIn->nChannels)
 	{
-		return -1;
-	}*/
-	currentImage = cvCreateImage(cvSize(imgIn->width, imgIn->height), IPL_DEPTH_8U, imgIn->nChannels);
-	currentImage = imgIn;
-	//currentImage = new IplImage;
-	//cvCvtColor(imgIn, currentImage, CV_RGB2BGR);
-
-
+		currentImageTemp = currentImage;
+		currentImage = imgIn;
+	}
+	else
+	{
+		currentImage = cvCreateImage(cvSize(imgIn->width, imgIn->height), imgIn->depth, imgIn->nChannels);
+		currentImage = imgIn;
+		currentImageTemp = cvCreateImage(cvSize(currentImage->width, currentImage->height), currentImage->depth, currentImage->nChannels);
+		cvCopy(currentImage, currentImageTemp);// 用于修改图片的存储空间
+	}
+	
 	image = iplImg2QImg(imgIn);
 
 	// modify angle 
 	matrix.rotate(angle * 90);
 	imgRotate = image.transformed(matrix);
 
-	//if (size == QSize(0, 0)) {
-	//	size = image.size();
-	//}
 	size = image.size();
 
 	// modify scale 
@@ -254,7 +254,7 @@ QImage mImage::iplImg2QImg(IplImage *iplImg)
 	if (nChannel == 3)
 	{
 		QImage img;
-		cvConvertImage(iplImg, iplImg, CV_CVTIMG_SWAP_RB);
+		//cvConvertImage(iplImg, iplImg, CV_CVTIMG_SWAP_RB);
 		img = QImage((const unsigned char*)iplImg->imageData, iplImg->width, iplImg->height, QImage::Format_RGB888);
 		return img;
 	}
@@ -281,7 +281,6 @@ QImage mImage::iplImg2QImg(IplImage *iplImg)
 		return img;
 	}
 }
-
 //
 int mImage::grayScaleImage(void)
 {

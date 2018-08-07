@@ -286,9 +286,9 @@ namespace imgmaker
 		return 0;
 	}
 
-    int grayScaleImage(const IplImage *src, IplImage* &dst)
+    int grayScaleImage(const IplImage *src, IplImage* dst)
 	{
-		dst = cvCreateImage(cvGetSize(src), IPL_DEPTH_8U, 1);
+		//dst = cvCreateImage(cvGetSize(src), IPL_DEPTH_8U, 1);
 		if (src->nChannels == 3)
 			cvCvtColor(src, dst, CV_BGR2GRAY);
 		else
@@ -484,7 +484,7 @@ namespace imgmaker
 		if (nChannel == 3)
 		{
 			QImage img;
-			cvConvertImage(iplImg, iplImg, CV_CVTIMG_SWAP_RB);
+			//cvConvertImage(iplImg, iplImg, CV_CVTIMG_SWAP_RB);
 			img = QImage((const unsigned char*)iplImg->imageData, iplImg->width, iplImg->height, QImage::Format_RGB888);
 			return img;
 		}
@@ -643,7 +643,7 @@ namespace imgmaker
 		return dst;
 	}
 
-	IplImage* mirrorImage(const IplImage *src,int flag)
+	int mirrorImage(const IplImage *src, IplImage* dst, int flag)
 	{
 		double map[6] = { -1, 0, 0, 0, -1, 0 };
 		switch (flag)
@@ -668,9 +668,9 @@ namespace imgmaker
 		}
 		}
 		CvMat map_matrix = cvMat(2, 3, CV_64FC1, map);
-		IplImage *currentImageMirror = cvCreateImage(cvSize(src->width, src->height), IPL_DEPTH_8U, src->nChannels);
-		cvWarpAffine(src, currentImageMirror, &map_matrix, CV_INTER_LINEAR | CV_WARP_FILL_OUTLIERS, cvScalarAll(0));
-		return currentImageMirror;
+		//IplImage *currentImageMirror = cvCreateImage(cvSize(src->width, src->height), IPL_DEPTH_8U, src->nChannels);
+		cvWarpAffine(src, dst, &map_matrix, CV_INTER_LINEAR | CV_WARP_FILL_OUTLIERS, cvScalarAll(0));
+		return 0;
 	}
 
 	IplImage* rotateImgage(const IplImage*src, double degree)
@@ -754,7 +754,8 @@ namespace imgmaker
 
 		for (int i = 0; i < 256; i++){
 			int v;
-			if ((*clTable)(i)<= (uchar)item.Shadow)
+			if ((*clTable)(i) <= (uchar)item.Shadow)
+				//v = (int)item.Shadow;
 				v = 0;
 			else{
 				v = (int)(((*clTable)(i)-item.Shadow) * coef + 0.5);
@@ -811,5 +812,159 @@ namespace imgmaker
 		}
 		return 0;
 
+	}
+
+	int adjustBrightnessContrast(const IplImage* src, IplImage* dst, PBrightContrastItem _PBrightContrastItem)
+	{
+		/*
+		y = [x - 127.5 * (1 - B)] * k + 127.5 * (1 + B);
+		x is the input pixel value
+		y is the output pixel value
+		B is brightness, value range is [-1,1]
+		k is used to adjust contrast
+		k = tan( (45 + 44 * c) / 180 * PI );
+		c is contrast, value range is [-1,1]*/
+		assert(_PBrightContrastItem.brightness >= -1 && _PBrightContrastItem.brightness <= 1 
+			&& _PBrightContrastItem.contrast >= -1 && _PBrightContrastItem.contrast <= 1);
+		float k = tan((45. + 44. * _PBrightContrastItem.contrast) / 180. * PI);
+
+		mMatrix<uchar> ctable(1, 256);
+		ctable.setEqualRatioM();
+
+		for (int i = 0; i < 256; i++){
+			switch (_PBrightContrastItem.mode){
+			case 1:{
+				ctable(i) = uchar(COLOR_RANGE(i*pow(2.,_PBrightContrastItem.contrast) + (_PBrightContrastItem.brightness*100)));
+				break;
+			}
+			case 0:{
+				ctable(i) = uchar(COLOR_RANGE((i - 127.5 * (1 - _PBrightContrastItem.brightness)) * k + 127.5 * (1 + _PBrightContrastItem.brightness)));
+				break;
+			}
+			}
+			
+		}
+		uchar* mdata = (uchar *)src->imageData;
+		uchar* mdataD = (uchar *)dst->imageData;
+
+		for (int i = 0; i < src->imageSize; i++)		{
+			mdataD[i] = ctable(int(mdata[i]));
+		}
+		return 0;
+	}
+
+	int adjustHSL(const IplImage* src, IplImage* dst, PHLSItem _PHLSItem)
+	{
+		cvConvertImage(src, dst, CV_RGB2HLS);
+		int channels = src->nChannels;
+
+		float delta_hls[3];
+		int H;
+		float L, S;
+
+		uchar* mdata = (uchar *)dst->imageData;
+		int step = dst->widthStep / sizeof(uchar);
+
+		for (int row = 0; row < src->height; row++)
+		{
+			for (int col = 0; col < src->width; col++)
+			{
+				delta_hls[0] = delta_hls[1] = delta_hls[2] = 0;
+				H = (int)mdata[row*step + col*channels + 0]/255.*360;
+				L = (float)mdata[row*step + col*channels + 1]/255.;
+				S = (float)mdata[row*step + col*channels + 2]/255.;
+				adjustH(H, delta_hls, _PHLSItem);
+				//adjust hue
+				H = (H + int(delta_hls[0])) % 360;
+				if (H <  0) H += 360;
+				//adjust lightness
+				delta_hls[1] = CLIP_RANGE(delta_hls[1], -100, 100);
+				if (delta_hls[1] < 0) {
+					L = L * (1 + delta_hls[1] / 100.0);
+				}
+				else {
+					L = L + (1 - L) * delta_hls[1] / 100.0; //lightness increase
+					S = S - S * delta_hls[1] / 100.0; //saturation decrease
+				}
+				//adjust saturation
+				delta_hls[1] = CLIP_RANGE(delta_hls[2], -100, 100);
+				if (delta_hls[1] < 0) {
+					S = S * (1 + delta_hls[2] / 100.0);
+				}
+				else {
+					S = S+ (1 -S) * delta_hls[2] / 100.0; //saturation increase
+					L=L + (1 - L) * delta_hls[2] / 100.0; //lightness increase
+				}
+				mdata[row*step + col*channels + 0] = (uchar)(H/360.*255);
+				mdata[row*step + col*channels + 1] = (uchar)(L*255);
+				mdata[row*step + col*channels + 2] = (uchar)(S*255);
+			}
+		}
+		cvConvertImage(dst, dst, CV_HLS2RGB);
+		return 0;
+	}
+
+	void adjustH(int H, float *delta_hls, PHLSItem &_PHLSItem)
+	{
+		if (_PHLSItem.index == 0) {
+			delta_hls[0] += _PHLSItem.hue;
+			delta_hls[1] += _PHLSItem.lightness;
+			delta_hls[2] += _PHLSItem.saturation;
+			return;
+		}
+
+		if (_PHLSItem.left <_PHLSItem.right) {
+			if (H >= _PHLSItem.left_left && H <= _PHLSItem.right_right) {
+				if (H >= _PHLSItem.left && H <= _PHLSItem.right) {
+					delta_hls[0] += _PHLSItem.hue;
+					delta_hls[1] += _PHLSItem.lightness;
+					delta_hls[2] += _PHLSItem.saturation;
+					return;
+				}
+				if (H >= _PHLSItem.left_left && H <= _PHLSItem.left && _PHLSItem.left > _PHLSItem.left_left) {
+					delta_hls[0] += _PHLSItem.hue * (H - _PHLSItem.left_left) / (_PHLSItem.left - _PHLSItem.left_left);
+					delta_hls[1] += _PHLSItem.lightness * (H - _PHLSItem.left_left) / (_PHLSItem.left - _PHLSItem.left_left);
+					delta_hls[2] += _PHLSItem.saturation * (H - _PHLSItem.left_left) / (_PHLSItem.left - _PHLSItem.left_left);
+					return;
+				}
+
+				if (H >= _PHLSItem.right && H <= _PHLSItem.right_right && _PHLSItem.right_right > _PHLSItem.right) {
+					delta_hls[0] += _PHLSItem.hue * (_PHLSItem.right_right - H) / (_PHLSItem.right_right - _PHLSItem.right);
+					delta_hls[1] += _PHLSItem.lightness * (_PHLSItem.right_right - H) / (_PHLSItem.right_right - _PHLSItem.right);
+					delta_hls[2] += _PHLSItem.saturation * (_PHLSItem.right_right - H) / (_PHLSItem.right_right - _PHLSItem.right);
+					return;
+				}
+			}
+
+		}
+		else {
+			if (H >= _PHLSItem.left &&H <= 360) {
+				delta_hls[0] += _PHLSItem.hue;
+				delta_hls[1] += _PHLSItem.lightness;
+				delta_hls[2] += _PHLSItem.saturation;
+				return;
+			}
+
+			if (H >= 0 && H <= _PHLSItem.right) {
+				delta_hls[0] += _PHLSItem.hue;
+				delta_hls[1] += _PHLSItem.lightness;
+				delta_hls[2] += _PHLSItem.saturation;
+				return;
+			}
+
+			if (H >= _PHLSItem.left_left && H <= _PHLSItem.left && _PHLSItem.left > _PHLSItem.left_left) {
+				delta_hls[0] += _PHLSItem.hue * (H - _PHLSItem.left_left) / (_PHLSItem.left - _PHLSItem.left_left);
+				delta_hls[1] += _PHLSItem.lightness * (H - _PHLSItem.left_left) / (_PHLSItem.left - _PHLSItem.left_left);
+				delta_hls[2] += _PHLSItem.saturation * (H - _PHLSItem.left_left) / (_PHLSItem.left - _PHLSItem.left_left);
+				return;
+			}
+
+			if (H >= _PHLSItem.right && H <= _PHLSItem.right_right && _PHLSItem.right_right >_PHLSItem.right) {
+				delta_hls[0] += _PHLSItem.hue * (_PHLSItem.right_right - H) / (_PHLSItem.right_right - _PHLSItem.right);
+				delta_hls[1] += _PHLSItem.lightness * (_PHLSItem.right_right - H) / (_PHLSItem.right_right - _PHLSItem.right);
+				delta_hls[2] += _PHLSItem.saturation * (_PHLSItem.right_right - H) / (_PHLSItem.right_right - _PHLSItem.right);
+				return;
+			}
+		}
 	}
 }

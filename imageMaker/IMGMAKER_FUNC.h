@@ -23,7 +23,7 @@ namespace imgmaker
 
 	int  gaussianBlurImage(const IplImage *src, IplImage* &dst, int blurX = 3, int blurY = 0);
 
-	int grayScaleImage(const IplImage *src, IplImage* &dst);
+	int grayScaleImage(const IplImage *src, IplImage* dst);
 
 	int sobelAbsImage(const IplImage *src, IplImage* &dst, int xorder, int yorder, int aperture_size);
 
@@ -48,7 +48,7 @@ namespace imgmaker
 
 	IplImage* expandImage(const IplImage *src, int _w, int _h, uchar _color,int _flag=0);
 	IplImage* resizeImgage(const IplImage *src, int _w, int _h);
-	IplImage* mirrorImage(const IplImage *src, int flag);
+	int mirrorImage(const IplImage *src, IplImage* dst, int flag);
 	IplImage* rotateImgage(const IplImage*src, double degree);
 
 	inline int modInt(const int  &_x, const int & _y)
@@ -71,5 +71,10 @@ namespace imgmaker
 	bool getColorLevelTable(PColorLevelItem item, mMatrix<uchar> *clTable);
 
 	int imageColorLevel(const IplImage* src, IplImage* dst, PColorLevelItem item, int charchaneel);
+
+	int adjustBrightnessContrast(const IplImage* src, IplImage* dst, PBrightContrastItem _PBrightContrastItem);
+
+	void adjustH(int H, float *delta_hls, PHLSItem &_PHLSItem);
+	int adjustHSL(const IplImage* src, IplImage* dst, PHLSItem _PHLSItem);
 }
 #endif
